@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Gyümölcs Nyilvántartó</h1>
+      <h1>Gyümis alkalmazas</h1>
 
       <FruitForm onSuccess={loadFruits} />
 

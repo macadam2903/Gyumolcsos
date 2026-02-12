@@ -1,24 +1,33 @@
 import { deleteFruit } from "../api";
+import "../style.css"; // CSS importálása
 
 function FruitList({ fruits, onDelete }) {
   const handleDelete = async (id) => {
     try {
       await deleteFruit(id);
-      onDelete(); 
+      onDelete();
     } catch (err) {
-      alert(err.message); 
+      alert(err.message);
     }
   };
 
   return (
-    <div>
+    <div className="fruit-list-container">
       <h2>Gyümölcsök</h2>
-      <ul>
+      <ul className="fruit-list">
         {fruits.map((fruit) => (
-          <li key={fruit.gyumolcsid}>
-            {fruit.nev} ({fruit.nev_eng})
-            <button onClick={() => handleDelete(fruit.gyumolcsid)}>
-              Törlés
+          <li key={fruit.gyumolcsid} className="fruit-item">
+            <img
+              src={`/forrasKepek/${fruit.src}`}
+              alt={fruit.alt_szoveg}
+              className="fruit-image"
+            />
+            <span className="fruit-name">{fruit.nev} ({fruit.nev_eng})</span>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(fruit.gyumolcsid)}
+            >
+            Törlés
             </button>
           </li>
         ))}

@@ -1,25 +1,36 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
-import fruitRoutes from './routes/fruitRoutes.js';
-import arrivalRoutes from './routes/arrivalRoutes.js';
+import * as fruitController from "./controllers/fruitController.js";
+import arrivalRoutes from "./routes/arrivalRoutes.js";
 
-dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Gyümölcs API működik!' });
-});
+// Statikus képek
+app.use("/kepek", express.static(path.join(__dirname, "forrasKepek")));
 
-app.use('/fruits', fruitRoutes);
-app.use('/arrivals', arrivalRoutes);
+// Routes
+app.get("/fruits", fruitController.getAllFruits);
+app.get("/fruits/:id", fruitController.getFruitById);
+app.post("/fruits", fruitController.createFruit);
+app.put("/fruits/:id", fruitController.updateFruit);
+app.delete("/fruits/:id", fruitController.deleteFruit);
 
+// Szerver indítása
 app.listen(PORT, () => {
-  console.log(`Szerver fut a http://localhost:${PORT}`);
+  console.log(`Szerver fut a http://localhost:${PORT} címen`);
+
+app.use("/arrivals", arrivalRoutes);
 });
+

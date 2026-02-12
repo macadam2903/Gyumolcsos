@@ -22,3 +22,44 @@ body {
     padding: 5px 10px;
     cursor: pointer;
   }
+  
+  .fruit-list-container {
+    padding: 20px;
+  }
+  
+  .fruit-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .fruit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .fruit-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  
+  .fruit-name {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+  }

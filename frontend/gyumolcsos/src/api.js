@@ -22,6 +22,10 @@ export const deleteFruit = async (id) => {
 };
 
 export const getArrivals = async () => {
-  const res = await fetch(`${BASE_URL}/arrivals`);
-  return res.json();
-};
+    const res = await fetch("http://localhost:3000/arrivals");
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || "Szerver hiba");
+    }
+    return res.json();
+  };
