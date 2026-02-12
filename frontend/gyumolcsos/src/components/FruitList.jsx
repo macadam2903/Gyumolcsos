@@ -1,5 +1,5 @@
 import { deleteFruit } from "../api";
-import "../style.css"; // CSS importálása
+import "../style.css";
 
 function FruitList({ fruits, onDelete }) {
   const handleDelete = async (id) => {
@@ -18,7 +18,7 @@ function FruitList({ fruits, onDelete }) {
         {fruits.map((fruit) => (
           <li key={fruit.gyumolcsid} className="fruit-item">
             <img
-              src={`/forrasKepek/${fruit.src}`}
+              src={`http://localhost:3000/kepek/${fruit.src}`}
               alt={fruit.alt_szoveg}
               className="fruit-image"
             />
