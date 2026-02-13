@@ -109,7 +109,7 @@ http://localhost:3001
 A gyümölcs képek helye:
 
 ```
-frontend/public/forrasKepek/
+backend/forrasKepek/
 ```
 
 A backendben az adatbázisban a `src` mező tartalmazza a fájlnevet:
