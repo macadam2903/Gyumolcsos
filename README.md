@@ -1,109 +1,220 @@
-# Gyümölcs Nyilvántartó Rendszer
+# 🍎 Gyümölcs Nyilvántartó Rendszer
 
-Ez a projekt egy gyümölcs nyilvántartó rendszer, ami háromféle klienset tartalmaz:
+Ez a projekt egy teljes CRUD (Create, Read, Update, Delete) rendszer gyümölcsök kezelésére.
 
-- **Webes frontend + Node.js/Express backend** (`frontend-backend` branch)  
-- **Windows Forms asztali alkalmazás** (`winforms` branch)  
-- **Konzolos alkalmazás** (`konzolos` branch)  
+A projekt 4 részből áll:
 
-A rendszer lehetővé teszi a gyümölcsök listázását, hozzáadását, frissítését és törlését, valamint az érkezések megtekintését.
+- 🌐 Frontend (React webalkalmazás)
+- 🖥 Backend (Node.js REST API)
+- 🪟 Windows Forms asztali alkalmazás
+- 💻 Konzolos alkalmazás
 
----
-
-## Általános követelmények
-
-- Node.js v24.x (a backendhez)  
-- NPM vagy Yarn (a frontendhez)  
-- .NET 6 vagy .NET 7 (Windows Forms és konzolos apphoz)  
-- Git  
+Minden projekt a `main` branch-ben található.
 
 ---
 
-## Branch-ek
+# 📁 Projekt struktúra
 
-| Branch neve          | Leírás                                |
-|---------------------|--------------------------------------|
-| frontend-backend     | Webes frontend (React/Vite) + backend (Node.js/Express) |
-| winforms             | Windows Forms asztali alkalmazás     |
-| konzolos             | Konzolos alkalmazás (.NET)           |
+```
+/backend
+/frontend
+/winforms
+/consoleapp
+```
 
 ---
 
-## 1️⃣ Frontend + Backend telepítése (`frontend-backend` branch)
+# ⚙️ Rendszerkövetelmények
 
-1. Klónozd a repót és válts a megfelelő branch-re:
+Telepíteni kell:
+
+- Node.js (v18+ ajánlott)
+- npm
+- .NET 6 vagy újabb
+- Visual Studio 2022 (WinForms miatt ajánlott)
+- SQL Server vagy SQLite (attól függően mit használtok)
+
+---
+
+# 🚀 Backend indítása
+
+1️⃣ Lépj be a backend mappába:
 
 ```bash
-git clone <repo-url>
-cd <repo-name>
-git checkout frontend-backend
-```
-2. Navigálj a backend mappába és telepítsd a függőségeket:
-
 cd backend
+```
+
+2️⃣ Telepítsd a csomagokat:
+
+```bash
 npm install
+```
 
-3. Hozd létre a .env fájlt a következővel:
+3️⃣ Indítsd el a szervert:
 
-DB_HOST=localhost
-DB_USER=<mysql felhasználó>
-DB_PASSWORD=<mysql jelszó>
-DB_NAME=<adatbázis neve>
-DB_PORT=3306
-PORT=3000
+```bash
+node server.js
+```
 
-4. Indítsd a backend-et:
+Ha minden jó:
 
-npm run dev
+```
+Server running on http://localhost:3000
+```
 
-5. Nyisd meg a frontend mappát és telepítsd a függőségeket:
+---
 
-cd ../frontend
+## 📡 Backend API végpontok
+
+| Művelet | Endpoint |
+|----------|----------|
+| Összes gyümölcs | GET /fruits |
+| Egy gyümölcs | GET /fruits/:id |
+| Új gyümölcs | POST /fruits |
+| Módosítás | PUT /fruits/:id |
+| Törlés | DELETE /fruits/:id |
+
+---
+
+# 🌐 Frontend indítása (React)
+
+1️⃣ Lépj be:
+
+```bash
+cd frontend
+```
+
+2️⃣ Telepítés:
+
+```bash
 npm install
+```
 
-6. Indítsd a frontendet:
+3️⃣ Indítás:
 
-npm run dev
+```bash
+npm start
+```
 
-7. Most a weboldal a http://localhost:5173 címen elérhető (Vite default port).
+A weboldal itt fog futni:
 
-Megjegyzés: A képek a backend forrasKepek mappájából töltődnek.
+```
+http://localhost:3001
+```
 
-2️⃣ Windows Forms alkalmazás telepítése (winforms branch)
+---
 
-1. Válts a winforms branch-re:
+## 🖼 Képek kezelése
 
-git checkout winforms
+A gyümölcs képek helye:
 
-2. Nyisd meg a GyumolcsApp.sln megoldást Visual Studio-ban.
+```
+frontend/public/forrasKepek/
+```
 
-3. Ellenőrizd, hogy a Form1.cs-ben a baseUrl a backend URL-re mutat:
+A backendben az adatbázisban a `src` mező tartalmazza a fájlnevet:
 
-private string baseUrl = "http://localhost:3000";
+Példa:
+```
+alma.jpg
+korte.jpg
+banan.jpg
+```
 
-4. Futtasd a projektet (F5 vagy Start Debugging).
+A React így hivatkozik rá:
 
-5. A Windows Forms app látja a backendből a gyümölcsöket és a képeket is.
+```js
+<img src={`/forrasKepek/${fruit.src}`} />
+```
 
-3️⃣ Konzolos alkalmazás telepítése (konzolos branch)
+---
 
-1. Válts a konzolos branch-re:
+# 🪟 Windows Forms alkalmazás indítása
 
-git checkout konzolos
+1️⃣ Nyisd meg a `winforms` mappát Visual Studio-ban  
+2️⃣ Állítsd be startup projectnek  
+3️⃣ Futtatás (F5)
 
-2. Nyisd meg a .sln fájlt Visual Studio-ban.
+⚠ Fontos: A backendnek futnia kell előtte!
 
-3. Ellenőrizd, hogy a backend URL helyesen van beállítva a Program.cs-ben:
+Az alkalmazás a következő API-t használja:
 
-string baseUrl = "http://localhost:3000";
+```
+http://localhost:3000/fruits
+```
 
-4. Futtasd a konzolos alkalmazást (F5).
+---
 
-   A konzolos alkalmazás lehetővé teszi a gyümölcsök listázását, hozzáadását, frissítését és törlését a parancssorból.
+# 💻 Konzolos alkalmazás
 
-4️⃣ Fontos megjegyzések
-- A backend forrasKepek mappáját a backend könyvtárban kell tartani, hogy a webes és Windows Forms kliens is elérje a képeket.
+1️⃣ Nyisd meg a `consoleapp` projektet Visual Studio-ban  
+2️⃣ Futtasd
 
-- Győződj meg róla, hogy a MySQL adatbázis fut, és a .env fájlban helyesek az adatok.
+Ez is a backend REST API-t használja.
 
-- Ha bármelyik kliens hibát jelez a képek betöltésénél, ellenőrizd, hogy a backend fut, és a http://localhost:3000/kepek/<kepnev> URL közvetlenül elérhető a böngészőből.
+---
+
+# 🔗 Kapcsolat a részek között
+
+```
+Frontend  ---> Backend API ---> Adatbázis
+WinForms  ---> Backend API ---> Adatbázis
+Console   ---> Backend API ---> Adatbázis
+```
+
+Minden kliens ugyanazt az API-t használja.
+
+---
+
+# 🛠 Gyakori hibák
+
+### ❌ 500 Internal Server Error
+
+→ Backend nem fut  
+→ Hibás adatbázis kapcsolat  
+→ Hibás ID törlésnél  
+
+### ❌ Képek nem jelennek meg
+
+→ Nem jó helyen van a `forrasKepek` mappa  
+→ Hibás fájlnév az adatbázisban  
+
+### ❌ CORS hiba
+
+A backendben legyen:
+
+```js
+const cors = require("cors");
+app.use(cors());
+```
+
+---
+
+# 👨‍💻 Fejlesztői információ
+
+Ez a projekt:
+
+- REST API kommunikációt használ
+- CRUD műveleteket valósít meg
+- Több klienssel dolgozik (web + desktop + console)
+- JSON adatcserét használ
+
+---
+
+# 📌 Fontos
+
+A backendnek mindig futnia kell, mielőtt:
+
+- Frontend indul
+- WinForms indul
+- Console app indul
+
+---
+
+# 📷 Példa működés
+
+✔ Gyümölcs hozzáadása  
+✔ Gyümölcs módosítása  
+✔ Gyümölcs törlése  
+✔ Képek megjelenítése  
+✔ Lista frissítése  
